@@ -1,8 +1,8 @@
-import {Request, NextFunction, Response} from "express";
+import { Request, NextFunction, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import UserService from "../services/user.service.js";
+import UserService from '../services/user.service.js';
 const tokenExpirationTime = 5000;
-const secret = 'Shh-hhh'
+const secret = process.env.JWT_KEY || 'Shh-hhh';
 
 class AuthController {
 	constructor() {}
@@ -12,12 +12,12 @@ class AuthController {
 			const email: string = req.body['email'];
 			const password: string = req.body['password'];
 			const user = await UserService.Repository.getUserByEmail(email);
-			console.log(`User: ${JSON.stringify(user)}.`)
+			console.log(`User: ${JSON.stringify(user)}.`);
 			if(user) {
 				const isPasswordMatch = password == user.password;
-				if (!isPasswordMatch) { throw new Error('Invalid Password.')}
+				if (!isPasswordMatch) { throw new Error('Invalid Password.');}
 				else {
-					console.log(`JWT Secret: ${secret}.`)
+					// console.log(`JWT Secret: ${secret}.`);
 					const token = jwt.sign(req.body, secret, {
 						expiresIn: tokenExpirationTime
 					});
@@ -29,7 +29,7 @@ class AuthController {
 					});
 				}
 			} else {
-				throw new Error('User not found.')
+				throw new Error('User not found.');
 			}
 		} catch (e) {
 			next(e);
@@ -38,12 +38,12 @@ class AuthController {
 
 	async signup(req: Request, res: Response, next: NextFunction) {
 		try {
-			const username = req.body['username']
-			const email = req.body['email']
-			const password = req.body['password']
+			const username = req.body['username'];
+			const email = req.body['email'];
+			const password = req.body['password'];
 
 			const user = await UserService.Repository.getUserByEmail(email);
-			console.info(`User: ${JSON.stringify(user)}`)
+			console.info(`User: ${JSON.stringify(user)}`);
 			if(user) { throw new Error('User already exists.');}
 			else {
 				try {

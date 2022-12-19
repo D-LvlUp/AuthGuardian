@@ -1,13 +1,13 @@
 import RoutesConfigs from './config/index.js';
-import express, {Express, Request, Response} from "express";
+import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
-import * as http from "http";
-import UserService from "./services/user.service.js";
-import {RouteConfig} from "@dlvlup/core/dist/common/index.js";
+import * as http from 'http';
+import UserService from './services/user.service.js';
+import { RouteConfig } from '@dlvlup/core/dist/common/index.js';
 
 const routes: Array<RouteConfig> = [];
 
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 
 const app: Express = express();
 

@@ -1,3 +1,3 @@
-import {Users} from "./User.js";
+import { Users } from './User.js';
 
-export const entities = [Users]
+export const entities = [Users];
