@@ -7,7 +7,7 @@ import { RouteConfig } from '@dlvlup/core/dist/common/index.js';
 
 const routes: Array<RouteConfig> = [];
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 8080;
 
 const app: Express = express();
 

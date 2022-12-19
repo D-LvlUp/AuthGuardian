@@ -54,6 +54,4 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_221688D357A241D18B45B21F86520CBF }}
           package: .
-        env:
-          JWT_KEY: {{ secrets.JWT_KEY }}
-          PORT: {{ secrets.PORT }}
+
