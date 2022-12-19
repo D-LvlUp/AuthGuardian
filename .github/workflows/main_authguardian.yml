@@ -32,9 +32,6 @@ jobs:
         with:
           name: node-app
           path: .
-        env:
-          JWT_KEY: { { secrets.JWT_KEY } }
-          PORT: { { secrets.PORT } }
 
   🛫deploy:
     runs-on: ubuntu-latest
