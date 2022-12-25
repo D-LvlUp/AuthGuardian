@@ -1,7 +1,7 @@
 {
   "name": "authenticator",
   "version": "1.0.0",
-  "main": "src/app.ts",
+  "main": "dist/app.js",
   "type": "module",
   "scripts": {
     "dev": "tsc && node dist/app.js",
