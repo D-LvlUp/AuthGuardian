@@ -1,9 +1,11 @@
-import RoutesConfigs from './config/index.js';
+import RoutesConfigs from './routes/index';
 import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
 import * as http from 'http';
-import UserService from './services/user.service.js';
-import { RouteConfig } from '@dlvlup/core/dist/common/index.js';
+import UserService from './services/user.service';
+import { RouteConfig } from '@dlvlup/core/dist/common';
+import { validateApiKey } from './security/api.security';
+import { log } from '@dlvlup/core/dist/helpers';
 
 const routes: Array<RouteConfig> = [];
 
@@ -13,6 +15,7 @@ const app: Express = express();
 
 app.use(express.json());
 app.use(cors());
+app.use(validateApiKey);
 
 RoutesConfigs.forEach(Route => routes.push(new Route(app)));
 
@@ -22,14 +25,21 @@ app.get('/', async (req: Request, res: Response) => {
 	);
 });
 
+app.all('*', (req: Request, res: Response) => {
+	// Here user design an
+	// error page and render it
+	res.status(404).send('PAGE NOT FOUND');
+});
+
 const server: http.Server = http.createServer(app);
+
 
 server.listen(PORT, async () => {
 	await UserService.Setup(); //TODO: Include many Services Setup.
 
-	console.log(`Server is running on http://localhost:${PORT}`);
+	log.info(`Server is running on http://localhost:${PORT}`);
 
 	routes.forEach((route: RouteConfig) => {
-		console.log(`Routes configured for ${route.getName()}`);
+		log.success(`Routes configured for ${route.getName()}`);
 	});
 });

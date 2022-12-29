@@ -1,7 +1,7 @@
-import {Application} from "express";
-import UserController from "../controllers/user.controller.js";
-import JWT from '../services/jwt.service.js'
-import {RouteConfig} from "@dlvlup/core/dist/common/index.js";
+import { Application } from "express";
+import UserController from "../controllers/user.controller";
+import JWT from '../services/jwt.service'
+import { RouteConfig } from "@dlvlup/core/dist/common";
 
 export class UserRoutes extends RouteConfig {
 	constructor(app: Application) {

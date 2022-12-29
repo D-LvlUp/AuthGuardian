@@ -1,7 +1,11 @@
 import { Request, NextFunction, Response } from 'express';
+import UserService from '../services/user.service';
+import { IUser } from '../interfaces/user.interface';
 import jwt from 'jsonwebtoken';
-import UserService from '../services/user.service.js';
-const tokenExpirationTime = 5000;
+import bcrypt from 'bcrypt';
+import { log } from '@dlvlup/core/dist/helpers';
+import { response } from '../response';
+const tokenExpirationTime = 300; //In seconds
 const secret = process.env.JWT_KEY || 'Shh-hhh';
 
 class AuthController {
@@ -11,25 +15,37 @@ class AuthController {
 		try {
 			const email: string = req.body['email'];
 			const password: string = req.body['password'];
-			const user = await UserService.Repository.getUserByEmail(email);
-			console.log(`User: ${JSON.stringify(user)}.`);
-			if(user) {
-				const isPasswordMatch = password == user.password;
-				if (!isPasswordMatch) { throw new Error('Invalid Password.');}
+			const user: IUser = await UserService.Repository.getUserByEmail(email);
+			log.info(`User: ${JSON.stringify(user, null, 1)}.`);
+			if(user && user.password) {
+				const isPasswordMatch = bcrypt.compareSync(password,user.password);
+				if (!isPasswordMatch) {
+					new response(res)
+						.error('Unauthorized')
+						.message('Wrong Username or Password.')
+						.send();
+				}
 				else {
-					// console.log(`JWT Secret: ${secret}.`);
+					user.lastLogin = new Date();
+					await UserService.Repository.updateLastLogin(user);
 					const token = jwt.sign(req.body, secret, {
 						expiresIn: tokenExpirationTime
 					});
 
-					return res.status(200).json({
-						success: true,
-						data: user,
-						token,
-					});
+					delete user.password;
+
+					new response(res)
+						.success()
+						.data(user)
+						.message('Login Successful!')
+						.add({ token })
+						.send();
 				}
 			} else {
-				throw new Error('User not found.');
+				new response(res)
+					.error('Unauthorized')
+					.message('Wrong Username or Password.')
+					.send();
 			}
 		} catch (e) {
 			next(e);
@@ -40,30 +56,43 @@ class AuthController {
 		try {
 			const username = req.body['username'];
 			const email = req.body['email'];
-			const password = req.body['password'];
+			const fullname = req.body['fullname'];
+			let password = req.body['password'];
+			const role = req.body['role'] || null;
 
 			const user = await UserService.Repository.getUserByEmail(email);
-			console.info(`User: ${JSON.stringify(user)}`);
-			if(user) { throw new Error('User already exists.');}
+			if(user) {
+				new response(res)
+					.error('Bad Request')
+					.message('User already exist.')
+					.send();
+			}
 			else {
 				try {
-					const newUser = await UserService.Repository.createUser({
+					password = encrypt(password);
+					await UserService.Repository.createUser({
 						username,
 						email,
-						password
+						fullname,
+						password,
+						role
 					});
+					const newUser: IUser = await UserService.Repository.GetAsync(x => x.Where(r => r.email == email));
+					delete newUser.password;
 
 					const token = jwt.sign({ username, password }, secret, {
 						expiresIn: tokenExpirationTime
 					});
 
-					return res.status(201).json({
-						success: true,
-						data: newUser,
-						token
-					});
+					new response(res)
+						.success('Created')
+						.message('User Created Successfully!')
+						.data(newUser)
+						.add({ token })
+						.send();
+
 				} catch (e) {
-					console.log(`Controller capturing error: ${e}.`);
+					log.error(`Controller capturing error: ${e}.`);
 					throw new Error('Error Registering...');
 				}
 			}
@@ -71,6 +100,10 @@ class AuthController {
 			next(e);
 		}
 	}
+}
+
+function encrypt(password: string): string {
+	return bcrypt.hashSync(password, 10);
 }
 
 export default new AuthController();

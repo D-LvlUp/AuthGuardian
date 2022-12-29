@@ -1,6 +1,6 @@
 import { IUser } from '../interfaces/user.interface.js';
-import { Users } from '@dlvlup/data/dist/entities/index.js';
-import { BaseRepository } from '@dlvlup/data/dist/BaseRepository.js';
+import { Users } from '@dlvlup/data/dist/entities';
+import { BaseRepository } from '@dlvlup/data/dist/BaseRepository';
 
 export class UsersRepository extends BaseRepository<Users> {
 	async getUserByEmail(email: string): Promise<Users> {
@@ -8,8 +8,17 @@ export class UsersRepository extends BaseRepository<Users> {
 	}
 
 	async createUser(data: IUser) {
+		const user = new Users(data);
 		try {
-			await this.AddAsync(data);
+			await this.AddAsync(user);
+		} catch (e: any) {
+			throw new Error(e);
+		}
+	}
+
+	async updateLastLogin(data: any) {
+		try {
+			await this._dataRepository.update({ id: data.id }, data);
 		} catch (e: any) {
 			throw new Error(e);
 		}

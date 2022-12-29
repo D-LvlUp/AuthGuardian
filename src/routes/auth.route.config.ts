@@ -1,5 +1,5 @@
-import AuthController from "../controllers/auth.controller.js";
-import {RouteConfig} from "@dlvlup/core/dist/common/index.js";
+import AuthController from "../controllers/auth.controller";
+import { RouteConfig } from "@dlvlup/core/dist/common";
 
 export class AuthRoutes extends RouteConfig {
 	constructor(app: any) {
