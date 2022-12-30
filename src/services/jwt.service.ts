@@ -11,7 +11,7 @@ class JWT {
 			jwt.verify(authHeader, JWT_KEY, (err: any, user) => {
 				if(err) {
 					log.error(`Error: ${err}`);
-					new response(res)
+					return new response(res)
 						.error('Forbidden')
 						.message('Token Expired.')
 						.send();
