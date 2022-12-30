@@ -17,7 +17,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \n}",
+					"raw": "{\n    \"username\":\"Testy2\",\n    \"email\":\"Testy2@dlvlup.com\",\n    \"fullname\":\"Testy Fernandez\",\n    \"password\":\"password\",\n    \"role\":\"Call Center\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -31,6 +31,13 @@
 					],
 					"path": [
 						"signup"
+					],
+					"query": [
+						{
+							"key": "code",
+							"value": "{{API_Key}}",
+							"disabled": true
+						}
 					]
 				}
 			},
@@ -70,12 +77,36 @@
 					}
 				},
 				"url": {
-					"raw": "{{BaseUrl}}/login",
+					"raw": "{{BaseUrl}}/login?code={{API_Key}}",
 					"host": [
 						"{{BaseUrl}}"
 					],
 					"path": [
 						"login"
+					],
+					"query": [
+						{
+							"key": "code",
+							"value": "{{API_Key}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CheckService",
+			"id": "bf510817-cbbd-4d41-a042-bbed5abd0998",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}",
+					"host": [
+						"{{BaseUrl}}"
 					]
 				}
 			},
@@ -106,12 +137,18 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{BaseUrl}}/Users",
+					"raw": "{{BaseUrl}}/Users?code={{API_Key}}",
 					"host": [
 						"{{BaseUrl}}"
 					],
 					"path": [
 						"Users"
+					],
+					"query": [
+						{
+							"key": "code",
+							"value": "{{API_Key}}"
+						}
 					]
 				}
 			},
@@ -142,13 +179,19 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{BaseUrl}}/Users/id",
+					"raw": "{{BaseUrl}}/Users/9ca75e18?code={{API_Key}}",
 					"host": [
 						"{{BaseUrl}}"
 					],
 					"path": [
 						"Users",
-						"id"
+						"9ca75e18"
+					],
+					"query": [
+						{
+							"key": "code",
+							"value": "{{API_Key}}"
+						}
 					]
 				}
 			},
