@@ -21,7 +21,7 @@ export async function validateApiKey(req: Request, res: Response, next: NextFunc
 		log.info(`Request ${req.url} executed at ${new Date().toISOString()}.`);
 		next();
 	} catch (e) {
-		res.status(403).send('Tenant Service not yet Setup.')
+		res.status(200).send('Tenant Service not yet Setup.')
 	}
 
 }

@@ -20,7 +20,7 @@ app.use(validateApiKey);
 
 RoutesConfigs.forEach(Route => routes.push(new Route(app)));
 
-app.get('/', async (req: Request, res: Response) => {
+app.get('/', (req: Request, res: Response) => {
 	res.send(
 		'<h1>Welcome World</h1>'
 	);
