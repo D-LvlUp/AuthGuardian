@@ -9,15 +9,21 @@ export async function validateApiKey(req: Request, res: Response, next: NextFunc
 	const IsLocalhost = host?.includes('localhost:');
 
 	let IsTenant;
-	if(req.path !== '/') {
-		if(host != null && !IsLocalhost) {
-			IsTenant = await TenantService.Repository.IsAuthorizedTenant(host, code)
-			if (!IsTenant) {
-				return res.status(403).send('No API Key no threat!! 😡');
+
+	try {
+		if(req.path !== '/') {
+			if(host != null && !IsLocalhost) {
+				IsTenant = await TenantService.Repository.IsAuthorizedTenant(host, code)
+				if (!IsTenant) {
+					return res.status(403).send('No API Key no threat!! 😡');
+				}
 			}
 		}
+
+		log.info(`Request ${req.path} executed at ${new Date().toISOString()}.`);
+		next();
+	} catch (e) {
+		res.status(403).send('Tenant Service not yet Setup.')
 	}
 
-	log.info(`Request ${req.path} executed at ${new Date().toISOString()}.`);
-	next();
 }
