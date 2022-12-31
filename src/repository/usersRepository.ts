@@ -4,7 +4,7 @@ import { BaseRepository } from '@dlvlup/data/dist/BaseRepository';
 
 export class UsersRepository extends BaseRepository<Users> {
 	async getUserByEmail(email: string): Promise<Users> {
-		return await this.GetAsync(x => x.Where(r => r.email == email));
+		return await this.GetAsync(x => x.Where(r => r.email.toLowerCase() == email.toLowerCase()));
 	}
 
 	async createUser(data: IUser) {
