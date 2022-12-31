@@ -2,17 +2,7 @@
 # yarn lockfile v1
 
 
-"@dlvlup/core@1.0.5":
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/@dlvlup/core/-/core-1.0.5.tgz#2c06f6969b88b34d2cf367a61fac30e885f5ac96"
-  integrity sha512-lxEg6SUiSD41cjmubwqWCrCEo6iDu0a+nX12CJXFQxItmh3DXYyeNreoUhYHIlYx9ph5qPoXnM4hO3fpNoIPQw==
-  dependencies:
-    "@types/express" "^4.17.14"
-    class-transformer "^0.5.1"
-    class-validator "^0.14.0"
-    reflect-metadata "^0.1.13"
-
-"@dlvlup/core@^1.1.1":
+"@dlvlup/core@1.1.1", "@dlvlup/core@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@dlvlup/core/-/core-1.1.1.tgz#e69cbc3551521748bc7f53b938772bcb1157b35e"
   integrity sha512-V8hMKWSoBYKhWAemo5/f1cRxkxf/5tG7+DwCjmb9GXF7LhaewUgki7H+bkG7iQBqIhoLA0wScaoHxHDR6fnUXw==
@@ -23,12 +13,12 @@
     consola "^2.15.3"
     reflect-metadata "^0.1.13"
 
-"@dlvlup/data@^1.1.16":
-  version "1.1.16"
-  resolved "https://registry.yarnpkg.com/@dlvlup/data/-/data-1.1.16.tgz#343f692713337a0c6b89620efeb00fcad71e53ba"
-  integrity sha512-BtDHXLV5P5awFzVSGCRR26CCN8Ixi3JhtkZDW3hQwba0cPTrtZWD0WN1LWe0s8NfEzZfGYvHegQjJwHtJMNjPA==
+"@dlvlup/data@^1.2.5":
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/@dlvlup/data/-/data-1.2.5.tgz#6709a5750a79422ae05af1f69d5af72eaca686bd"
+  integrity sha512-ks5ddc8rF88+MG9Z3P3Xfl6x226MP7ntaDk7vnqgfw6CAHp+ZbQ+uyaatMwb7kmorz/ULifw1li98ypSpQ8xZg==
   dependencies:
-    "@dlvlup/core" "1.0.5"
+    "@dlvlup/core" "1.1.1"
     mysql "^2.18.1"
     reflect-metadata "^0.1.13"
     typeorm "^0.3.11"

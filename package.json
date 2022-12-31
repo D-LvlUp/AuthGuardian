@@ -10,7 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "@dlvlup/core": "^1.1.1",
-    "@dlvlup/data": "^1.1.16",
+    "@dlvlup/data": "^1.2.5",
     "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
     "express": "^4.18.2",

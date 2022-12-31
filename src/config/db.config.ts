@@ -12,13 +12,13 @@ export class MysqlConfig {
 
 	readonly password = process.env.DB_PASS
 
-	readonly database = 'test'
+	readonly database = 'authguardian_db'
 
 	readonly ssl = { ca: fs.readFileSync(path.join('DigiCertGlobalRootCA.crt.pem')) };
 
 	entities = []
 
-	synchronize = true
+	synchronize = false
 
 	logging = false
 }

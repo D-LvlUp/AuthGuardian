@@ -6,6 +6,7 @@ import UserService from './services/user.service';
 import { RouteConfig } from '@dlvlup/core/dist/common';
 import { validateApiKey } from './security/api.security';
 import { log } from '@dlvlup/core/dist/helpers';
+import TenantService from "./services/tenant.service";
 
 const routes: Array<RouteConfig> = [];
 
@@ -35,7 +36,8 @@ const server: http.Server = http.createServer(app);
 
 
 server.listen(PORT, async () => {
-	await UserService.Setup(); //TODO: Include many Services Setup.
+	await UserService.Setup(); //TODO: Include many Services but one Setup.
+	await TenantService.Setup();
 
 	log.info(`Server is running on http://localhost:${PORT}`);
 
