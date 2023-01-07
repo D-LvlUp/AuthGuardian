@@ -10,10 +10,10 @@ class JWT {
 		if(authHeader) {
 			jwt.verify(authHeader, JWT_KEY, (err: any, user) => {
 				if(err) {
-					log.error(`Error: ${err}`);
+					log.warn(`${err}`);
 					return new response(res)
 						.error('Forbidden')
-						.message('Token Expired.')
+						.message('Session ended.\nPlease log in again.')
 						.send();
 				}
 				// @ts-ignore

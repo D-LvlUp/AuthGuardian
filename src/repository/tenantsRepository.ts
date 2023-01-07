@@ -15,7 +15,7 @@ export class TenantsRepository extends BaseRepository<Tenants> {
 
 	async IsAuthorizedTenant(host: string, api_key: string)  {
 		return await this.GetAsync(x => x.Where(t =>
-		t.host === host && t.api_key === api_key)
+			t.host === host && t.api_key === api_key)
 			.Select(t => t.IsActive));
 	}
 }

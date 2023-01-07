@@ -14,7 +14,7 @@ class UserService extends DBService<Users> {
 	public Repository: UsersRepository;
 
 	public async Setup() {
-		const DB = await new DBContext(config, this._entities).start();
+		const DB = await new DBContext(config, this._entities).start(); //TODO: Extract this to a single instance?
 		if (DB.dbIsConnected()) {log.success('Connected to DB Successfully.');}
 		this.Repository = new UsersRepository(DB.DBSource, Users);
 	}

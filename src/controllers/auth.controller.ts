@@ -28,12 +28,10 @@ class AuthController {
 				else {
 					user.lastLogin = new Date();
 					await UserService.Repository.updateLastLogin(user);
-					const token = jwt.sign(req.body, secret, {
+					delete user.password;
+					const token = jwt.sign({...user}, secret, {
 						expiresIn: tokenExpirationTime
 					});
-
-					delete user.password;
-
 					new response(res)
 						.success()
 						.data(user)

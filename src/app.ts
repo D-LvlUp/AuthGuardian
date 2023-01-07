@@ -6,7 +6,7 @@ import UserService from './services/user.service';
 import { RouteConfig } from '@dlvlup/core/dist/common';
 import { validateApiKey } from './security/api.security';
 import { log } from '@dlvlup/core/dist/helpers';
-import TenantService from "./services/tenant.service";
+import TenantService from './services/tenant.service';
 
 const routes: Array<RouteConfig> = [];
 

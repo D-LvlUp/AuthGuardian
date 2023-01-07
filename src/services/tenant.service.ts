@@ -1,9 +1,9 @@
-import {DBService} from "@dlvlup/data/dist/DBService";
-import {Tenants} from "@dlvlup/data/dist/entities";
-import {TenantsRepository} from "../repository/tenantsRepository";
-import {DBContext} from "@dlvlup/data/dist/DBContext";
-import {MysqlConfig} from "../config/db.config";
-import {log} from "@dlvlup/core/dist/helpers";
+import { DBService } from '@dlvlup/data/dist/DBService';
+import { Tenants } from '@dlvlup/data/dist/entities';
+import { TenantsRepository } from '../repository/tenantsRepository';
+import { DBContext } from '@dlvlup/data/dist/DBContext';
+import { MysqlConfig } from '../config/db.config';
+import { log } from '@dlvlup/core/dist/helpers';
 const config = new MysqlConfig();
 
 class TenantService extends DBService<Tenants> {
